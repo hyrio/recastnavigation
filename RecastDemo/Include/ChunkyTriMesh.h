@@ -19,6 +19,7 @@
 #ifndef CHUNKYTRIMESH_H
 #define CHUNKYTRIMESH_H
 
+// BVH树的节点
 struct rcChunkyTriMeshNode
 {
 	float bmin[2];
@@ -27,16 +28,17 @@ struct rcChunkyTriMeshNode
 	int n;
 };
 
+// 一颗BVH树
 struct rcChunkyTriMesh
 {
 	inline rcChunkyTriMesh() : nodes(0), nnodes(0), tris(0), ntris(0), maxTrisPerChunk(0) {};
 	inline ~rcChunkyTriMesh() { delete [] nodes; delete [] tris; }
 
-	rcChunkyTriMeshNode* nodes;
-	int nnodes;
-	int* tris;
-	int ntris;
-	int maxTrisPerChunk;
+	rcChunkyTriMeshNode* nodes;			// 树的根节点
+	int nnodes;							// 树的节点数量
+	int* tris;							// 按区域划分排序后的三角形集合
+	int ntris;							// 三角形个数
+	int maxTrisPerChunk;				// 叶子节点最多包含的三角形数
 
 private:
 	// Explicitly disabled copy constructor and copy assignment operator.

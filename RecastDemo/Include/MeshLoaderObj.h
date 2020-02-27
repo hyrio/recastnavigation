@@ -46,11 +46,11 @@ private:
 	
 	std::string m_filename;
 	float m_scale;	
-	float* m_verts;
-	int* m_tris;
-	float* m_normals;
-	int m_vertCount;
-	int m_triCount;
+	float* m_verts;				// 顶点数据集合
+	int* m_tris;				// 三角形数据集合
+	float* m_normals;			// 法线数据集合（数量 = 三角形个数 * 3）
+	int m_vertCount;			// 顶点数量
+	int m_triCount;				// 三角形数量
 };
 
 #endif // MESHLOADER_OBJ

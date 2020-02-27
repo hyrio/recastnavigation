@@ -286,6 +286,8 @@ void rcCalcBounds(const float* verts, int nv, float* bmin, float* bmax)
 
 void rcCalcGridSize(const float* bmin, const float* bmax, float cs, int* w, int* h)
 {
+	// 根据包围盒大小和CellSize计算体素的数量
+	// + 0.5f是为了可以四舍五入
 	*w = (int)((bmax[0] - bmin[0])/cs+0.5f);
 	*h = (int)((bmax[2] - bmin[2])/cs+0.5f);
 }

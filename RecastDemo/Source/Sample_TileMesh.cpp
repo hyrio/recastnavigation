@@ -244,6 +244,10 @@ void Sample_TileMesh::handleSettings()
 		const float* bmin = m_geom->getNavMeshBoundsMin();
 		const float* bmax = m_geom->getNavMeshBoundsMax();
 		rcCalcGridSize(bmin, bmax, m_cellSize, &gw, &gh);
+
+		// 根据体素宽高的数量与TileSize的值来计算当前场景需要多少个TILES
+		// 假设当前体素的数量为 36 * 36, tileSize = 32, 那么tiles = 2 * 2 所以算法是 (gw + ts)/ts
+		// 假设当前体素的数量为 32 * 32, tileSize = 32, 那么tiles = 1 * 1 所以最终算法是 (gw + ts - 1)/ts，这边-1就保证了最终的值不会是 2 * 2
 		const int ts = (int)m_tileSize;
 		const int tw = (gw + ts-1) / ts;
 		const int th = (gh + ts-1) / ts;

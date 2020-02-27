@@ -140,14 +140,18 @@ bool InputGeom::loadMesh(rcContext* ctx, const std::string& filepath)
 		ctx->log(RC_LOG_ERROR, "loadMesh: Out of memory 'm_mesh'.");
 		return false;
 	}
+
+	// 根据目标obj文件初始化rcMeshLoaderObj类型的对象m_mesh（包括顶点数据，顶点数量，三角形数据，三角形数量，法线数据）
 	if (!m_mesh->load(filepath))
 	{
 		ctx->log(RC_LOG_ERROR, "buildTiledNavigation: Could not load '%s'", filepath.c_str());
 		return false;
 	}
 
+	// 计算当前模型的包围盒的最小点和最大点
 	rcCalcBounds(m_mesh->getVerts(), m_mesh->getVertCount(), m_meshBMin, m_meshBMax);
 
+	// 创建BVH树
 	m_chunkyMesh = new rcChunkyTriMesh;
 	if (!m_chunkyMesh)
 	{
