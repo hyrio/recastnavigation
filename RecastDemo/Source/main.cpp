@@ -463,14 +463,19 @@ int main(int /*argc*/, char** /*argv*/)
 		moveUp		= rcClamp(moveUp	+ dt * 4 * ((keystate[SDL_SCANCODE_Q] || keystate[SDL_SCANCODE_PAGEUP	]) ? 1 : -1), 0.0f, 1.0f);
 		moveDown	= rcClamp(moveDown	+ dt * 4 * ((keystate[SDL_SCANCODE_E] || keystate[SDL_SCANCODE_PAGEDOWN	]) ? 1 : -1), 0.0f, 1.0f);
 		
-		float keybSpeed = 22.0f;
+		float cameraSpeedUp = 1.0f;
+		if (geom) {
+			cameraSpeedUp = geom->getMesh()->getScale();
+		}
+
+		float keybSpeed = 22.0f * cameraSpeedUp;
 		if (SDL_GetModState() & KMOD_SHIFT)
 		{
 			keybSpeed *= 4.0f;
 		}
 		
 		float movex = (moveRight - moveLeft) * keybSpeed * dt;
-		float movey = (moveBack - moveFront) * keybSpeed * dt + scrollZoom * 2.0f;
+		float movey = (moveBack - moveFront) * keybSpeed * dt + scrollZoom * 2.0f * cameraSpeedUp;
 		scrollZoom = 0;
 		
 		cameraPos[0] += movex * (float)modelviewMatrix[0];

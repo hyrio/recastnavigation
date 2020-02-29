@@ -34,6 +34,7 @@ public:
 	const int* getTris() const { return m_tris; }
 	int getVertCount() const { return m_vertCount; }
 	int getTriCount() const { return m_triCount; }
+	float getScale() const { return m_scale; }
 	const std::string& getFileName() const { return m_filename; }
 
 private:
